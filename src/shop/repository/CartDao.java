@@ -69,5 +69,21 @@ public class CartDao {
 		return list;
 	}
 	
+	public void deleteCartItem(String username, String itemid) throws SQLException{
+		Connection conn = SysDataSource.getInstance().getConnection();
+		try{
+			String sql = "delete from cart where username = ? and itemid = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, itemid);
+			pstmt.execute();
+		}catch(Exception e){
+			
+		}finally{
+			conn.close();
+		}
+	}
+	
+	
 	
 }

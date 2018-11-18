@@ -104,6 +104,14 @@ public class ItemServlet extends HttpServlet {
 		Map<String,Map<String,Object>> itemCart = (Map<String,Map<String,Object>>)session.getAttribute("itemCart");
 		
 		itemCart.remove(id);
+		User user = (User)session.getAttribute("user");
+		if(user!=null){
+			try {
+				cartDao.deleteCartItem(user.getUsername(), id);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		try {
 			//req.getRequestDispatcher("/item").forward(req, resp);
